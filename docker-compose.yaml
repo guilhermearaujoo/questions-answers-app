@@ -7,7 +7,7 @@ services:
     stdin_open: true
     command: bash
     volumes:
-      - ./frontend/:/app
+      - ./frontend/src/:/app/src
     working_dir: /app
     ports:
       - '3000:3000'
@@ -20,7 +20,7 @@ services:
     stdin_open: true
     command: bash
     volumes:
-      - ./backend/:/app
+      - ./backend/src/:/app/src
     working_dir: /app
     ports:
       - '3001:3001'
@@ -29,9 +29,11 @@ services:
     environment:
       DB_USER: root
       DB_PASSWORD: password
-      DB_HOST: db
+      DB_HOST: database
       DB_PORT: 3306
-      DB_NAME: database
+      DB_NAME: emepar_db
+    networks:
+      - "emepar_net"
   database:
     container_name: mysql
     image: mysql:8.0.32
@@ -40,3 +42,8 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: password
+    networks:
+      - "emepar_net"
+networks:
+  emepar_net:
+    driver: bridge
