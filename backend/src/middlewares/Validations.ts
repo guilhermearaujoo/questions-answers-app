@@ -20,6 +20,10 @@ class Validations {
       return res.status(400).json({ message: `${notFoundKey} is required` });
     }
 
+    if (typeof enquete.enqueteId !== 'number') {
+      return res.status(422).json({ message: 'enqueteId must be a number' });
+    }
+
     next();
   }
 }

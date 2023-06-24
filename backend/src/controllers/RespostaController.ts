@@ -23,4 +23,9 @@ export default class BookController {
 
     res.status(200).json(serviceResponse.data);
   }
+
+  public async createEnquete(req: Request, res: Response) {
+    const serviceResponse = await this.respostaService.createResposta(req.body);
+    res.status(201).json(serviceResponse.data);
+  }
 }

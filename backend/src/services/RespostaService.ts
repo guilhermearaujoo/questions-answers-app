@@ -2,6 +2,7 @@ import RespostaModel from '../models/RespostaModel';
 import { Resposta } from '../interfaces/resposta/Resposta';
 import { IRespostaModel } from '../interfaces/resposta/IRespostaModel';
 import { ServiceResponse } from '../interfaces/ServiceResponse';
+import { NewEntity } from '../interfaces';
 
 export default class BookService {
   constructor(
@@ -17,5 +18,10 @@ export default class BookService {
     const resposta = await this.respostaModel.findById(id);
     if (!resposta) return { status: 'NOT_FOUND', data: { message: `Resposta ${id} not found` } };
     return { status: 'SUCCESSFUL', data: resposta };
+  }
+
+  public async createResposta(resposta: NewEntity<Resposta>): Promise<ServiceResponse<Resposta>> {
+    const newResposta = await this.respostaModel.create(resposta);
+    return { status: 'SUCCESSFUL', data: newResposta };
   }
 }
