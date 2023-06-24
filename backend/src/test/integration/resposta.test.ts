@@ -88,6 +88,45 @@ describe('Respostas Test', function () {
       expect(status).to.equal(400);
       expect(body.message).to.equal('enqueteId is required');
     });
+
+    it('should update a resposta', async function() {
+      sinon.stub(SequelizeTest, 'update').resolves([1] as any);
+      sinon.stub(SequelizeTest, 'findByPk').resolves(resposta as any);
+      sinon.stub(Validations, 'validateResposta').returns();
+  
+      const { id, ...sendData } = resposta;
+  
+      const { status, body } = await chai.request(app).put('/respostas/1')
+        .send(sendData);
+  
+      expect(status).to.equal(200);
+      expect(body.message).to.equal('Resposta updated');
+    });
+  
+    it('should return not found when the resposta to update does not exists', async function() {
+      sinon.stub(SequelizeTest, 'findByPk').resolves(null);
+  
+      const { id, ...sendData } = resposta;
+  
+      const { status, body } = await chai.request(app).put('/respostas/1')
+        .send(sendData);
+  
+      expect(status).to.equal(404);
+      expect(body.message).to.equal('Resposta 1 not found');
+    });
+  
+    it('should return conflict when there is nothing to be updated', async function() {
+      sinon.stub(SequelizeTest, 'findByPk').resolves(resposta as any);
+      sinon.stub(SequelizeTest, 'update').resolves([0] as any);
+  
+      const { id, ...sendData } = resposta;
+  
+      const { status, body } = await chai.request(app).put('/respostas/1')
+        .send(sendData);
+  
+      expect(status).to.equal(409);
+      expect(body.message).to.equal('There are no updates to perform in Resposta 1');
+    });
   });
 
   afterEach(sinon.restore);
