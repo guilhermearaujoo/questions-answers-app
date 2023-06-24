@@ -25,6 +25,7 @@
     "editorconfig",
     "mocha"
   ],
+  "ignorePatterns": ["/src/test"],
   "rules": {
     "no-console": "off",
     "camelcase": "warn",

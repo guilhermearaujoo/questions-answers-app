@@ -21,10 +21,9 @@
   },
   "include": [
     "src/**/*",
-    "tests/**/*"
-, "src/database/models/enquete.model.ts"  ],
+    "src/test/**/*"
+, "src/database/models/SequelizeEnquete.ts", "test"  ],
   "exclude": [
-    "src/tests",
     "node_modules",
     "build"
   ]

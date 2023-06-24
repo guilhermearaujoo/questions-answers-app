@@ -1,5 +1,5 @@
 import { DataTypes, Model, QueryInterface } from 'sequelize';
-import { Resposta } from '../../interfaces/Resposta';
+import { Resposta } from '../../interfaces/resposta/Resposta';
 
 export default {
   up(queryInterface: QueryInterface) {

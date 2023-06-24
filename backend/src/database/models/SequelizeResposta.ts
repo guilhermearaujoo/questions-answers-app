@@ -6,7 +6,7 @@ import {
   CreationOptional,
 } from 'sequelize';
 import db from '.';
-import SequelizeEnquete from './enquete.model';
+import SequelizeEnquete from './SequelizeEnquete';
 
 class SequelizeResposta extends Model<InferAttributes<SequelizeResposta>,
 InferCreationAttributes<SequelizeResposta>> {
