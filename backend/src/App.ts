@@ -1,5 +1,5 @@
 import express = require('express');
-import router from './router/RespostaRouter';
+import router from './router';
 
 class App {
   public app: express.Express;
