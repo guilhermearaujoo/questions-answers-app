@@ -27,7 +27,7 @@ describe('Respostas Test', function () {
   it('should return a resposta by id', async function() {
     sinon.stub(SequelizeTest, 'findOne').resolves(resposta as any);
 
-    const { status, body } = await chai.request(app).get('/resposta/1');
+    const { status, body } = await chai.request(app).get('/respostas/1');
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(resposta);
@@ -36,9 +36,11 @@ describe('Respostas Test', function () {
   it('should return not found if the resposta doesn\'t exists', async function() {
     sinon.stub(SequelizeTest, 'findOne').resolves(null);
 
-    const { status, body } = await chai.request(app).get('/resposta/1');
+    const { status, body } = await chai.request(app).get('/respostas/1');
 
     expect(status).to.equal(404);
     expect(body.message).to.equal('Resposta 1 not found');
   });
+
+  afterEach(sinon.restore);
 });
