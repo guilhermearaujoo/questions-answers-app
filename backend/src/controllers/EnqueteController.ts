@@ -12,7 +12,7 @@ export default class EnqueteController {
     res.status(200).json(serviceResponse.data);
   }
 
-  public async getRespostaById(req: Request, res: Response) {
+  public async getEnqueteById(req: Request, res: Response) {
     const { id } = req.params;
 
     const serviceResponse = await this.enqueteService.getEnqueteById(Number(id));
@@ -22,5 +22,10 @@ export default class EnqueteController {
     }
 
     res.status(200).json(serviceResponse.data);
+  }
+
+  public async createEnquete(req: Request, res: Response) {
+    const serviceResponse = await this.enqueteService.createEnquete(req.body);
+    res.status(201).json(serviceResponse.data);
   }
 }
