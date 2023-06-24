@@ -17,4 +17,11 @@ router.post(
   (req: Request, res: Response) => enqueteController.createEnquete(req, res),
 );
 
+router.put(
+  '/:id',
+  Validations.validateEnquete,
+  (req: Request, res: Response) =>
+    enqueteController.updateEnquete(req, res),
+);
+
 export default router;

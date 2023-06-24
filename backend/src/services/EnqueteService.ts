@@ -1,7 +1,7 @@
 import EnqueteModel from '../models/EnqueteModel';
 import { Enquete } from '../interfaces/enquete/Enquete';
 import { IEnqueteModel } from '../interfaces/enquete/IEnqueteModel';
-import { ServiceResponse } from '../interfaces/ServiceResponse';
+import { ServiceMessage, ServiceResponse } from '../interfaces/ServiceResponse';
 import { NewEntity } from '../interfaces';
 
 export default class EnqueteService {
@@ -23,5 +23,24 @@ export default class EnqueteService {
   public async createEnquete(enquete: NewEntity<Enquete>): Promise<ServiceResponse<Enquete>> {
     const newEnquete = await this.enqueteModel.create(enquete);
     return { status: 'SUCCESSFUL', data: newEnquete };
+  }
+
+  public async updateEnquete(
+    id: number,
+    enquete: Enquete,
+  ): Promise<ServiceResponse<ServiceMessage>> {
+    const bookFound = await this.enqueteModel.findById(id);
+    if (!bookFound) { 
+      return { status: 'NOT_FOUND', data: { message: `Enquete ${id} not found` } }; 
+    }
+
+    const updatedBook = await this.enqueteModel.update(id, enquete);
+    if (!updatedBook) {
+      return {
+        status: 'CONFLICT',
+        data: { message: `There are no updates to perform in Enquete ${id}` },
+      };
+    }
+    return { status: 'SUCCESSFUL', data: { message: 'Enquete updated' } };
   }
 }
