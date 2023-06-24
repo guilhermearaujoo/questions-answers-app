@@ -16,7 +16,7 @@ const { app } = new App();
 
 const { expect } = chai;
 
-describe('Respostas Test', function () {
+describe('Enquetes Test', function () {
   it('should return all enquetes', async function () {
     sinon.stub(SequelizeTest, 'findAll').resolves(enquetes as any);
 
@@ -65,6 +65,45 @@ describe('Respostas Test', function () {
 
     expect(status).to.equal(400);
     expect(body.message).to.equal('pergunta is required');
+  });
+
+  it('should update a Enquete', async function() {
+    sinon.stub(SequelizeTest, 'update').resolves([1] as any);
+    sinon.stub(SequelizeTest, 'findByPk').resolves(enquete as any);
+    sinon.stub(Validations, 'validateEnquete').returns();
+
+    const { id, ...sendData } = enquete;
+
+    const { status, body } = await chai.request(app).put('/enquetes/1')
+      .send(sendData);
+
+    expect(status).to.equal(200);
+    expect(body.message).to.equal('Enquete updated');
+  });
+
+  it('should return not found when the Enquete to update does not exists', async function() {
+    sinon.stub(SequelizeTest, 'findByPk').resolves(null);
+
+    const { id, ...sendData } = enquete;
+
+    const { status, body } = await chai.request(app).put('/enquetes/1')
+      .send(sendData);
+
+    expect(status).to.equal(404);
+    expect(body.message).to.equal('Enquete 1 not found');
+  });
+
+  it('should return conflict when there is nothing to be updated', async function() {
+    sinon.stub(SequelizeTest, 'findByPk').resolves(enquete as any);
+    sinon.stub(SequelizeTest, 'update').resolves([0] as any);
+
+    const { id, ...sendData } = enquete;
+
+    const { status, body } = await chai.request(app).put('/enquetes/1')
+      .send(sendData);
+
+    expect(status).to.equal(409);
+    expect(body.message).to.equal('There are no updates to perform in Enquete 1');
   });
 
   afterEach(sinon.restore);
