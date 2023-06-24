@@ -7,6 +7,7 @@ import chaiHttp = require('chai-http');
 import App from '../../App';
 import SequelizeTest from '../../database/models/SequelizeEnquete';
 import { enquete, enquetes } from '../mocks/Enquete.mock';
+import Validations from '../../middlewares/Validations';
 
 
 chai.use(chaiHttp);
@@ -41,6 +42,29 @@ describe('Respostas Test', function () {
 
     expect(status).to.equal(404);
     expect(body.message).to.equal('Enquete 1 not found');
+  });
+
+  it('should create a enquete', async function() {
+    sinon.stub(SequelizeTest, 'create').resolves(enquete as any);
+    sinon.stub(Validations, 'validateEnquete').returns();
+
+    const { id, ...sendData } = enquete;
+
+  const { status, body } = await chai.request(app).post('/enquetes')
+      .send(sendData);
+
+    expect(status).to.equal(201);
+    expect(body).to.deep.equal(enquete);
+  });
+
+
+  it('shouldn\'t create a enquete with invalid body data', async function() {
+
+    const { status, body } = await chai.request(app).post('/enquetes')
+      .send({});
+
+    expect(status).to.equal(400);
+    expect(body.message).to.equal('pergunta is required');
   });
 
   afterEach(sinon.restore);
