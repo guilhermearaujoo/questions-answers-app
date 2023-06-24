@@ -127,6 +127,25 @@ describe('Respostas Test', function () {
       expect(status).to.equal(409);
       expect(body.message).to.equal('There are no updates to perform in Resposta 1');
     });
+
+    it('should delete a resposta', async function() {
+      sinon.stub(SequelizeTest, 'destroy').resolves();
+      sinon.stub(SequelizeTest, 'findByPk').resolves(resposta as any);
+  
+      const { status, body } = await chai.request(app).delete('/respostas/1');
+  
+      expect(status).to.equal(200);
+      expect(body.message).to.equal('Resposta deleted');
+    });
+  
+    it('should return not found when the resposta to delete does not exists', async function() {
+      sinon.stub(SequelizeTest, 'findByPk').resolves(null);
+  
+      const { status, body } = await chai.request(app).delete('/respostas/1');
+  
+      expect(status).to.equal(404);
+      expect(body.message).to.equal('Resposta 1 not found');
+    });
   });
 
   afterEach(sinon.restore);
