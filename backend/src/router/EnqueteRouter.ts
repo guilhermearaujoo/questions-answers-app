@@ -24,4 +24,9 @@ router.put(
     enqueteController.updateEnquete(req, res),
 );
 
+router.delete(
+  '/:id',
+  (req: Request, res: Response) => enqueteController.deleteEnquete(req, res),
+);
+
 export default router;

@@ -29,18 +29,26 @@ export default class EnqueteService {
     id: number,
     enquete: Enquete,
   ): Promise<ServiceResponse<ServiceMessage>> {
-    const bookFound = await this.enqueteModel.findById(id);
-    if (!bookFound) { 
+    const enqueteFound = await this.enqueteModel.findById(id);
+    if (!enqueteFound) { 
       return { status: 'NOT_FOUND', data: { message: `Enquete ${id} not found` } }; 
     }
 
-    const updatedBook = await this.enqueteModel.update(id, enquete);
-    if (!updatedBook) {
+    const updatedEnquete = await this.enqueteModel.update(id, enquete);
+    if (!updatedEnquete) {
       return {
         status: 'CONFLICT',
         data: { message: `There are no updates to perform in Enquete ${id}` },
       };
     }
     return { status: 'SUCCESSFUL', data: { message: 'Enquete updated' } };
+  }
+
+  public async deleteEnquete(id: number): Promise<ServiceResponse<ServiceMessage>> {
+    const enqueteFound = await this.enqueteModel.findById(id);
+    if (!enqueteFound) return { status: 'NOT_FOUND', data: { message: `Enquete ${id} not found` } };
+
+    await this.enqueteModel.delete(id);
+    return { status: 'SUCCESSFUL', data: { message: 'Enquete deleted' } };
   }
 }

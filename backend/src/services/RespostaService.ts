@@ -34,13 +34,13 @@ export default class BookService {
     id: number,
     resposta: Resposta,
   ): Promise<ServiceResponse<ServiceMessage>> {
-    const bookFound = await this.respostaModel.findById(id);
-    if (!bookFound) { 
+    const respostaFound = await this.respostaModel.findById(id);
+    if (!respostaFound) { 
       return { status: 'NOT_FOUND', data: { message: `Resposta ${id} not found` } }; 
     }
 
-    const updatedBook = await this.respostaModel.update(id, resposta);
-    if (!updatedBook) {
+    const updatedResposta = await this.respostaModel.update(id, resposta);
+    if (!updatedResposta) {
       return {
         status: 'CONFLICT',
         data: { message: `There are no updates to perform in Resposta ${id}` },
