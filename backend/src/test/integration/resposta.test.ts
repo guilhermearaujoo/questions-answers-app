@@ -5,7 +5,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import App from '../../App';
-import SequelizeTest from '../../database/models/SequelizeEnquete';
+import SequelizeTest from '../../database/models/SequelizeResposta';
 import { resposta, respostas } from '../mocks/Resposta.mock';
 
 chai.use(chaiHttp);
