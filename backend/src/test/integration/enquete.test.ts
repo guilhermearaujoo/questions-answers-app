@@ -106,5 +106,24 @@ describe('Enquetes Test', function () {
     expect(body.message).to.equal('There are no updates to perform in Enquete 1');
   });
 
+  it('should delete a enquete', async function() {
+    sinon.stub(SequelizeTest, 'destroy').resolves();
+    sinon.stub(SequelizeTest, 'findByPk').resolves(enquete as any);
+
+    const { status, body } = await chai.request(app).delete('/enquetes/1');
+
+    expect(status).to.equal(200);
+    expect(body.message).to.equal('Enquete deleted');
+  });
+
+  it('should return not found when the enquete to delete does not exists', async function() {
+    sinon.stub(SequelizeTest, 'findByPk').resolves(null);
+
+    const { status, body } = await chai.request(app).delete('/enquetes/1');
+
+    expect(status).to.equal(404);
+    expect(body.message).to.equal('Enquete 1 not found');
+  });
+
   afterEach(sinon.restore);
 });
