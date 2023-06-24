@@ -30,10 +30,11 @@ SequelizeResposta.init({
   enqueteId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'enquete_id',
   },
 }, {
   sequelize: db,
-  modelName: 'Respostas',
+  modelName: 'respostas',
   timestamps: false,
 });
 
