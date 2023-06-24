@@ -12,4 +12,10 @@ export default class EnqueteService {
     const allEnquetes = await this.enqueteModel.findAll();
     return { status: 'SUCCESSFUL', data: allEnquetes };
   }
+
+  public async getEnqueteById(id: number): Promise<ServiceResponse<Enquete>> {
+    const enquete = await this.enqueteModel.findById(id);
+    if (!enquete) return { status: 'NOT_FOUND', data: { message: `Enquete ${id} not found` } };
+    return { status: 'SUCCESSFUL', data: enquete };
+  }
 }

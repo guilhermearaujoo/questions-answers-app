@@ -40,7 +40,7 @@ describe('Respostas Test', function () {
     const { status, body } = await chai.request(app).get('/enquetes/1');
 
     expect(status).to.equal(404);
-    expect(body.message).to.equal('enquete 1 not found');
+    expect(body.message).to.equal('Enquete 1 not found');
   });
 
   afterEach(sinon.restore);
