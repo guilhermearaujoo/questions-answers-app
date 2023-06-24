@@ -1,13 +1,23 @@
-import { DataTypes, Model, ModelDefined, Optional } from 'sequelize';
-import db from './index';
-import { Resposta } from '../../types/Resposta';
-import Enquete from './enquete.model';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from 'sequelize';
+import db from '.';
+import SequelizeEnquete from './enquete.model';
 
-export type RespostaInputtableTypes = Optional<Resposta, 'id'>;
-type RespostaSequelizeModelCreator = ModelDefined<Resposta, RespostaInputtableTypes>;
-export type RespostaSequelizeModel = Model<Resposta, RespostaInputtableTypes>;
+class SequelizeResposta extends Model<InferAttributes<SequelizeResposta>,
+InferCreationAttributes<SequelizeResposta>> {
+  declare id: CreationOptional<number>;
 
-const RespostaModel: RespostaSequelizeModelCreator = db.define('Resposta', {
+  declare resposta: string;
+
+  declare enqueteId: number;
+}
+
+SequelizeResposta.init({
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
@@ -22,12 +32,12 @@ const RespostaModel: RespostaSequelizeModelCreator = db.define('Resposta', {
     allowNull: false,
   },
 }, {
-  tableName: 'Respostas',
+  sequelize: db,
+  modelName: 'Respostas',
   timestamps: false,
-  underscored: true,
 });
 
-Enquete.hasMany(RespostaModel, { foreignKey: 'enqueteId', as: 'respostaIds' });
-RespostaModel.belongsTo(Enquete, { foreignKey: 'enqueteId' });
+SequelizeEnquete.hasMany(SequelizeResposta, { foreignKey: 'enqueteId', as: 'respostaIds' });
+SequelizeResposta.belongsTo(SequelizeEnquete, { foreignKey: 'enqueteId' });
 
-export default RespostaModel;
+export default SequelizeResposta;

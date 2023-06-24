@@ -1,14 +1,23 @@
-import { DataTypes, Model, ModelDefined, Optional } from 'sequelize';
-import db from './index';
-import { Enquete } from '../../types/Enquete';
+import {
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from 'sequelize';
+import db from '.';
 
-export type EnqueteInputtableTypes = Optional<Enquete, 'id'>;
-type EnqueteSequelizeModelCreator = ModelDefined<Enquete, EnqueteInputtableTypes>;
-export type EnqueteSequelizeModel = Model<Enquete, EnqueteInputtableTypes>;
+class SequelizeEnquete extends Model<InferAttributes<SequelizeEnquete>,
+InferCreationAttributes<SequelizeEnquete>> {
+  declare id: CreationOptional<number>;
 
-const EnqueteModel: EnqueteSequelizeModelCreator = db.define('Enquete', {
+  declare pergunta: string;
+}
+
+SequelizeEnquete.init({
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
+    allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
@@ -17,9 +26,9 @@ const EnqueteModel: EnqueteSequelizeModelCreator = db.define('Enquete', {
     allowNull: false,
   },
 }, {
-  tableName: 'enquetes',
+  sequelize: db,
+  modelName: 'enquetes',
   timestamps: false,
-  underscored: true,
 });
 
-export default EnqueteModel;
+export default SequelizeEnquete;

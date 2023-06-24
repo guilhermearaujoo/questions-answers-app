@@ -1,5 +1,5 @@
 import { DataTypes, Model, QueryInterface } from 'sequelize';
-import { Enquete } from '../../types/Enquete';
+import { Enquete } from '../../interfaces/Enquete';
 
 export default {
   up(queryInterface: QueryInterface) {
