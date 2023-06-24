@@ -23,4 +23,10 @@ router.put(
   (req: Request, res: Response) =>
     respostaController.updateResposta(req, res),
 );
+
+router.delete(
+  '/:id',
+  (req: Request, res: Response) => respostaController.deleteResposta(req, res),
+);
+
 export default router;

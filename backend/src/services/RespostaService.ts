@@ -35,8 +35,11 @@ export default class BookService {
     resposta: Resposta,
   ): Promise<ServiceResponse<ServiceMessage>> {
     const respostaFound = await this.respostaModel.findById(id);
-    if (!respostaFound) { 
-      return { status: 'NOT_FOUND', data: { message: `Resposta ${id} not found` } }; 
+    if (!respostaFound) {
+      return {
+        status: 'NOT_FOUND',
+        data: { message: `Resposta ${id} not found` },
+      };
     }
 
     const updatedResposta = await this.respostaModel.update(id, resposta);
@@ -47,5 +50,20 @@ export default class BookService {
       };
     }
     return { status: 'SUCCESSFUL', data: { message: 'Resposta updated' } };
+  }
+
+  public async deleteResposta(
+    id: number,
+  ): Promise<ServiceResponse<ServiceMessage>> {
+    const enqueteFound = await this.respostaModel.findById(id);
+    if (!enqueteFound) {
+      return {
+        status: 'NOT_FOUND',
+        data: { message: `Resposta ${id} not found` },
+      };
+    }
+
+    await this.respostaModel.delete(id);
+    return { status: 'SUCCESSFUL', data: { message: 'Resposta deleted' } };
   }
 }
