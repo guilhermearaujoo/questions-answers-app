@@ -1,4 +1,5 @@
 import express = require('express');
+import cors = require('cors');
 import router from './router';
 
 class App {
@@ -8,6 +9,8 @@ class App {
     this.app = express();
 
     this.app.use(express.json());
+
+    this.app.use(cors());
 
     this.routes();
 
