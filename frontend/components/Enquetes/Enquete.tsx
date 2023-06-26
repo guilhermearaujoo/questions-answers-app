@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { EnqueteType } from '@/types/Enquete';
 import { editEnquete, deleteEnquete } from '@/services/Enquete';
 import { EnqueteContext } from '@/context/EnqueteContext';
+import { useRouter } from 'next/router';
 
 type props = {
   enquete: EnqueteType;
@@ -11,6 +12,7 @@ const EditableText: React.FC<props> = ({ enquete }: props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(enquete.pergunta);
   const { setRealoadEnquete } = useContext(EnqueteContext);
+  const route = useRouter();
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -35,6 +37,10 @@ const EditableText: React.FC<props> = ({ enquete }: props) => {
     }
   };
 
+  const redirectToPage = () => {
+    route.push(`/enquete/${enquete.id}`);
+  }
+
   return (
     <div>
       {isEditing ? (
@@ -45,7 +51,7 @@ const EditableText: React.FC<props> = ({ enquete }: props) => {
           data-testid={`input-enquete-${enquete.id}`}
         />
       ) : (
-        <p data-testid={`text-enquete-${enquete.id}`}>{text}</p>
+          <p data-testid={`text-enquete-${enquete.id}`} onClick={ redirectToPage }>{text}</p>
       )}
       <button onClick={handleEdit} data-testid={`edit-enquete-${enquete.id}`}>
         Edit
