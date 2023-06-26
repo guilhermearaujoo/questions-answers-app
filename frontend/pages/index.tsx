@@ -1,7 +1,13 @@
+import { EnqueteProvider } from "@/context/EnqueteProvider";
+import EnqueteFolder from "@/components/EnqueteFolder";
+
 export default function Home() {
+  
   return (
     <main>
-      <h1>Frontend is working...</h1>
+      <EnqueteProvider>
+        <EnqueteFolder />
+      </EnqueteProvider>
     </main>
   )
 }
