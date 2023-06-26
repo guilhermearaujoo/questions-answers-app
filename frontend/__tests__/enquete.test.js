@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Home from '../pages/index.tsx';
-import { enquetes } from './__mocks__/EnquetesMock';
+import { enquetes, newSingleEnquete, singleEnquete } from './__mocks__/Enquetes.mock';
 
 describe('Enquete App', () => {
   it('renders the Enquete app', () => {
@@ -44,12 +44,45 @@ describe('Enquete App', () => {
       expect(addEnquete).toBeInTheDocument();
     });
 
-    const newEnquete = 'Qual o melhor framework?';
+    const newEnquete = singleEnquete.pergunta;
     userEvent.type(inputEnquete, newEnquete);
     addEnquete.click();
 
     await waitFor(() => {
-      expect(screen.getByText('Qual o melhor framework?')).toBeInTheDocument();
+      expect(screen.getByText(singleEnquete.pergunta)).toBeInTheDocument();
+    });
+  });
+
+  it('Edits an enquete', async () => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(enquetes),
+    }));
+
+    render(<Home />);
+
+    const editEnquete = await screen.findByTestId('edit-enquete-1');
+    const textEnquete = await screen.findByTestId('text-enquete-1');
+    const saveEnquete = await screen.findByTestId('save-enquete-1');
+
+    await waitFor(() => {
+      expect(editEnquete).toBeInTheDocument();
+      expect(textEnquete).toBeInTheDocument();
+      expect(saveEnquete).toBeInTheDocument();
+    });
+
+    userEvent.click(editEnquete);
+    const inputEnquete = await screen.findByTestId('input-enquete-1');
+    await waitFor(() => {
+      expect(inputEnquete).toBeInTheDocument();
+    });
+
+    userEvent.clear(inputEnquete);
+    userEvent.type(inputEnquete, newSingleEnquete.pergunta);
+    userEvent.click(saveEnquete);
+
+    const newInputEnquete = await screen.findByText(newSingleEnquete.pergunta);
+    await waitFor(() => {
+      expect(newInputEnquete).toBeInTheDocument();
     });
   });
 
