@@ -27,18 +27,28 @@ async function getEnquetes(): Promise<EnqueteType[]> {
   }
 }
 
-function editEnquete(pergunta: EnqueteType): void {
+function editEnquete(pergunta: EnqueteType) {
   try {
-    fetch(`${URL}/${pergunta.id}`, {
+    return fetch(`${URL}/${pergunta.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pergunta: pergunta.pergunta }),
-    });
+    }).then(() => 'SUCCESS');
   } catch (error) {
-    console.log(error);
+    return 'ERROR';
   }
 }
 
-export { postEnquete, getEnquetes, editEnquete }
+function deleteEnquete(id: number) {
+  try {
+    return fetch(`${URL}/${id}`, {
+      method: 'DELETE',
+    }).then(() => 'SUCCESS');
+  } catch (error) {
+    return 'ERROR';
+  }
+}
+
+export { postEnquete, getEnquetes, editEnquete, deleteEnquete }
