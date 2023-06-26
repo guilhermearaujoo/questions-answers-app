@@ -1,5 +1,5 @@
 import { EnqueteProvider } from "@/context/EnqueteProvider";
-import EnqueteFolder from "@/components/EnqueteFolder";
+import EnqueteFolder from "@/components/Enquetes/EnqueteFolder";
 
 export default function Home() {
   

@@ -1,4 +1,4 @@
-import { Enquete } from "@/types/Enquete";
+import { EnqueteType } from "@/types/Enquete";
 
 const URL = "http://localhost:3001/enquetes"
 
@@ -16,15 +16,29 @@ function postEnquete(pergunta: string) {
   }
 }
 
-async function getEnquetes(): Promise<Enquete[]> {
+async function getEnquetes(): Promise<EnqueteType[]> {
   try {
     const data = await fetch(URL);
     const enquetes = await data.json();
   
-    return enquetes as Enquete[];
+    return enquetes as EnqueteType[];
   } catch (error) {
     return [];
   }
 }
 
-export { postEnquete, getEnquetes }
+function editEnquete(pergunta: EnqueteType): void {
+  try {
+    fetch(`${URL}/${pergunta.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ pergunta: pergunta.pergunta }),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { postEnquete, getEnquetes, editEnquete }

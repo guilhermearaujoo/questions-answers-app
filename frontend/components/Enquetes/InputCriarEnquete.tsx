@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from 'react';
-import { getEnquetes, postEnquete } from '@/services/Enquete';
+import { postEnquete } from '@/services/Enquete';
 import { EnqueteContext } from '@/context/EnqueteContext';
 
 export default function InputCriarEnquete() {
