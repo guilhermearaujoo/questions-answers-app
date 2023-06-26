@@ -4,6 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Home from '../pages/index.tsx';
 import { enquetes, newSingleEnquete, singleEnquete } from './__mocks__/Enquetes.mock';
+import { wait } from '@testing-library/user-event/dist/utils/index.js';
 
 describe('Enquete App', () => {
   it('renders the Enquete app', () => {
@@ -83,6 +84,30 @@ describe('Enquete App', () => {
     const newInputEnquete = await screen.findByText(newSingleEnquete.pergunta);
     await waitFor(() => {
       expect(newInputEnquete).toBeInTheDocument();
+    });
+  });
+
+  it('Deletes an enquete', async () => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(enquetes),
+    }));
+
+    render(<Home />);
+
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve([]),
+    }));
+
+    const deleteEnquete = await screen.findByTestId('delete-enquete-1');
+
+    await waitFor(() => {
+      expect(deleteEnquete).toBeInTheDocument();
+    });
+
+    userEvent.click(deleteEnquete);
+
+    await waitFor(() => {
+      expect(screen.queryByText(singleEnquete.pergunta)).not.toBeInTheDocument();
     });
   });
 
