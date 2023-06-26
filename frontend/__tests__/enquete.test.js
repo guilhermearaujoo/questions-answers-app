@@ -1,10 +1,19 @@
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import mockRouter from 'next-router-mock';
+import { act } from 'react-dom/test-utils';
 import React from 'react';
 import Home from '../pages/index.tsx';
-import { enquetes, newSingleEnquete, singleEnquete } from './__mocks__/Enquetes.mock';
-import { wait } from '@testing-library/user-event/dist/utils/index.js';
+import {
+  enquetes,
+  newSingleEnquete,
+  singleEnquete,
+} from './__mocks__/Enquetes.mock';
+import { respostas } from './__mocks__/Resposta.mock';
+
+// eslint-disable-next-line global-require
+jest.mock('next/router', () => require('next-router-mock'));
 
 describe('Enquete App', () => {
   it('renders the Enquete app', () => {
@@ -107,7 +116,43 @@ describe('Enquete App', () => {
     userEvent.click(deleteEnquete);
 
     await waitFor(() => {
-      expect(screen.queryByText(singleEnquete.pergunta)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(singleEnquete.pergunta),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it.only('Redirects to the enquete page', async () => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(enquetes),
+    }));
+
+    mockRouter.push('/');
+    render(<Home />);
+
+    const enquete = await screen.findByTestId('text-enquete-1');
+
+    await waitFor(() => {
+      expect(enquete).toBeInTheDocument();
+    });
+
+    global.fetch
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValue(enquetes),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValue(enquetes),
+      })
+      .mockResolvedValue({
+        json: jest.fn().mockResolvedValue(respostas),
+      });
+
+    act(() => {
+      fireEvent.click(enquete);
+    });
+
+    expect(mockRouter).toMatchObject({
+      pathname: '/enquete/1',
     });
   });
 
