@@ -122,7 +122,7 @@ describe('Enquete App', () => {
     });
   });
 
-  it.only('Redirects to the enquete page', async () => {
+  it('Redirects to the enquete page', async () => {
     global.fetch = jest.fn(() => Promise.resolve({
       json: () => Promise.resolve(enquetes),
     }));
@@ -154,6 +154,8 @@ describe('Enquete App', () => {
     expect(mockRouter).toMatchObject({
       pathname: '/enquete/1',
     });
+
+    screen.debug();
   });
 
   afterEach(() => jest.clearAllMocks());
