@@ -9,6 +9,7 @@ services:
     volumes:
       - ./frontend/src/:/app/src
     working_dir: /app
+    restart: always
     ports:
       - '3000:3000'
     depends_on:

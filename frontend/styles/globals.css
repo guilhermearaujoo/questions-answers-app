@@ -25,17 +25,17 @@ body {
 
 @layer components {
   .btn-create {
-    @apply py-2 px-4 ring-1 font-semibold rounded-lg focus: outline-none focus:ring-2 hover:ring-white;
+    @apply py-2 px-4 ring-1 font-semibold rounded-lg focus:outline-none focus:ring-2 hover:ring-white;
     border: rgb(59 130 246 / 0.5);
   }
 
   .input {
-    @apply py-2 px-4 border-b placeholder-white ring-black bg-transparent font-semibold focus: outline-none hover:border-y-slate-50;
+    @apply py-2 px-4 border-b placeholder-white ring-black bg-transparent font-semibold focus:outline-none hover:border-y-slate-50;
     min-width: 80%;
   }
 
   .card {
-    @apply py-5 px-4 w-80 ring-1 bg-transparent rounded-lg shadow-lg hover: ring-white flex justify-between;
+    @apply py-5 px-4 w-80 ring-1 bg-transparent rounded-lg shadow-lg hover:ring-white flex justify-between;
     min-width: 50vw;
   }
 
@@ -45,7 +45,7 @@ body {
   }
 
   .btn-hover {
-    @apply hover: opacity-40
+    @apply hover:opacity-40
   }
 }
 
