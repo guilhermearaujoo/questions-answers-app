@@ -10,6 +10,14 @@ O arquivo `docker-compose.yml` já define que ao subir o container a aplicação
 docker-compose up -d
 ```
 
+### Onde acessar
+```bash
+#Após iciar os containers do docker vá em:
+http://localhost:3001
+```
+### importante
+O mysql pode demorar menos ou mais para rodar na sua máquina isso explica cado a aplcação demore mais de 1 minuto para iniciar.
+
 ### Dica
 
 Caso tenha conflitos com portas já usadas. Use os comandos:
