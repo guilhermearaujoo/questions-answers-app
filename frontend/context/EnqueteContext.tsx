@@ -3,6 +3,6 @@ import { createContext, useContext } from "react";
 
 export const EnqueteContext = createContext<enqueteContextType>(EnqueteDefaultValues);
 
-export function useAuth() {
+export function useEnquete() {
     return useContext(EnqueteContext);
 }

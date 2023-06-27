@@ -1,10 +1,10 @@
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { postEnquete } from '@/services/Enquete';
-import { EnqueteContext } from '@/context/EnqueteContext';
+import { useEnquete } from '@/context/EnqueteContext';
 
 export default function InputCriarEnquete() {
   const [enquete, setEnquete] = useState<string>('');
-  const { setRealoadEnquete } = useContext(EnqueteContext);
+  const { setRealoadEnquete } = useEnquete();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

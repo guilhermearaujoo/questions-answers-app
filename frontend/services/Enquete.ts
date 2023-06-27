@@ -2,15 +2,16 @@ import { EnqueteType } from "@/types/Enquete";
 
 const URL = "http://localhost:3001/enquetes"
 
-function postEnquete(pergunta: string) {
+async function postEnquete(pergunta: string) {
   try {
-    return fetch(URL, {
+    const data = await fetch(URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pergunta }),
-    }).then(() => 'SUCCESS');
+    })
+    return 'SUCCESS';
   } catch (error) {
     return 'ERROR';
   }
@@ -41,14 +42,25 @@ function editEnquete(pergunta: EnqueteType) {
   }
 }
 
-function deleteEnquete(id: number) {
+async function deleteEnquete(id: number) {
   try {
-    return fetch(`${URL}/${id}`, {
+    const data = await fetch(`${URL}/${id}`, {
       method: 'DELETE',
-    }).then(() => 'SUCCESS');
-  } catch (error) {
+    });
+    return 'SUCCESS';
+ } catch (error) {
     return 'ERROR';
+  }
+} 
+
+async function getEnqueteById(id: number): Promise<EnqueteType> {
+  try {
+    const data = await fetch(`${URL}/${id}`);
+    const enquete = await data.json();
+    return enquete;
+  } catch (error) {
+    return {} as EnqueteType;
   }
 }
 
-export { postEnquete, getEnquetes, editEnquete, deleteEnquete }
+export { postEnquete, getEnquetes, editEnquete, deleteEnquete, getEnqueteById }

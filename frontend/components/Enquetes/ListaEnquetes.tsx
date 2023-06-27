@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { EnqueteContext } from '@/context/EnqueteContext';
+import React, { useEffect, useState } from 'react';
+import { useEnquete } from '@/context/EnqueteContext';
 import { getEnquetes } from '@/services/Enquete';
 import { EnqueteType } from '@/types/Enquete';
 import Enquete from './Enquete';
 
 export default function Enquetes() {
 
-  const { reloadEnquete, setRealoadEnquete } = useContext(EnqueteContext);
+  const { reloadEnquete, setRealoadEnquete } = useEnquete();
   const [enquetes, setEnquetes] = useState<EnqueteType[]>([]);
 
   async function setInitialState() {
