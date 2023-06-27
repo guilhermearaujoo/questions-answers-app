@@ -15,6 +15,9 @@ export default class EnqueteService {
   }
 
   public async getEnqueteById(id: number): Promise<ServiceResponse<Enquete>> {
+    if (Number.isNaN(id)) {
+      return { status: 'NOT_FOUND', data: { message: `Enquete ${id} not found` } };
+    }
     const enquete = await this.enqueteModel.findById(id);
     if (!enquete) return { status: 'NOT_FOUND', data: { message: `Enquete ${id} not found` } };
     return { status: 'SUCCESSFUL', data: enquete };
