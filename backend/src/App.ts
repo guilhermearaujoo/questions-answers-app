@@ -21,8 +21,10 @@ class App {
     this.app.use(router);
   }
 
-  public start(PORT: string | number):void {
-    this.app.listen(PORT, () => console.log(`Emepar API no ar na porta ${PORT}!`));
+  public start(PORT: string | number): void {
+    this.app.listen(PORT, () =>
+      console.log(`Emepar API no ar na porta ${PORT}!`)
+    );
   }
 }
 

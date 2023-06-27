@@ -26,7 +26,7 @@ export default {
           enquete_id: 2,
         },
       ],
-      {},
+      {}
     );
   },
 

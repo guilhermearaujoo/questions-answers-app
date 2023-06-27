@@ -24,7 +24,7 @@ export default class BookService {
   }
 
   public async createResposta(
-    resposta: NewEntity<Resposta>,
+    resposta: NewEntity<Resposta>
   ): Promise<ServiceResponse<Resposta>> {
     const newResposta = await this.respostaModel.create(resposta);
     return { status: 'SUCCESSFUL', data: newResposta };
@@ -32,7 +32,7 @@ export default class BookService {
 
   public async updateResposta(
     id: number,
-    resposta: Resposta,
+    resposta: Resposta
   ): Promise<ServiceResponse<ServiceMessage>> {
     const respostaFound = await this.respostaModel.findById(id);
     if (!respostaFound) {
@@ -53,7 +53,7 @@ export default class BookService {
   }
 
   public async deleteResposta(
-    id: number,
+    id: number
   ): Promise<ServiceResponse<ServiceMessage>> {
     const enqueteFound = await this.respostaModel.findById(id);
     if (!enqueteFound) {

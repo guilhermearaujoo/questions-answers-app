@@ -8,9 +8,11 @@ export default class RespostaModel implements IRespostaModel {
 
   async findAll(): Promise<Resposta[]> {
     const dbData = await this.model.findAll();
-    return dbData.map(({ id, resposta, enqueteId }) => (
-      { id, resposta, enqueteId }
-    ));
+    return dbData.map(({ id, resposta, enqueteId }) => ({
+      id,
+      resposta,
+      enqueteId,
+    }));
   }
 
   async findById(id: Resposta['id']): Promise<Resposta | null> {
@@ -28,7 +30,10 @@ export default class RespostaModel implements IRespostaModel {
     return { id, resposta, enqueteId };
   }
 
-  async update(id: Resposta['id'], data: Partial<NewEntity<Resposta>>): Promise<Resposta | null> {
+  async update(
+    id: Resposta['id'],
+    data: Partial<NewEntity<Resposta>>
+  ): Promise<Resposta | null> {
     const [affectedRows] = await this.model.update(data, { where: { id } });
     if (affectedRows === 0) return null;
 

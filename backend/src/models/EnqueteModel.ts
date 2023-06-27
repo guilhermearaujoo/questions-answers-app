@@ -8,9 +8,7 @@ export default class EnqueteModel implements IEnqueteModel {
 
   async findAll(): Promise<Enquete[]> {
     const dbData = await this.model.findAll();
-    return dbData.map(({ id, pergunta }) => (
-      { id, pergunta }
-    ));
+    return dbData.map(({ id, pergunta }) => ({ id, pergunta }));
   }
 
   async findById(id: Enquete['id']): Promise<Enquete | null> {
@@ -28,7 +26,10 @@ export default class EnqueteModel implements IEnqueteModel {
     return { id, pergunta };
   }
 
-  async update(id: Enquete['id'], data: Partial<NewEntity<Enquete>>): Promise<Enquete | null> {
+  async update(
+    id: Enquete['id'],
+    data: Partial<NewEntity<Enquete>>
+  ): Promise<Enquete | null> {
     const [affectedRows] = await this.model.update(data, { where: { id } });
     if (affectedRows === 0) return null;
 
