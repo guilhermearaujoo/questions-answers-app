@@ -1,8 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { EnqueteType } from '@/types/Enquete';
 import { editEnquete, deleteEnquete } from '@/services/Enquete';
 import { useEnquete } from '@/context/EnqueteContext';
 import { useRouter } from 'next/router';
+import { FaPenSquare, FaSave, FaTrash } from 'react-icons/fa';
 
 type props = {
   enquete: EnqueteType;
@@ -38,38 +39,52 @@ const EditableText: React.FC<props> = ({ enquete }: props) => {
   };
 
   const redirectToPage = () => {
-    
     route.push(`/enquete/${enquete.id}`);
-  }
+  };
 
   return (
-    <div>
+    <div className='card'>
       {isEditing ? (
         <input
           type='text'
           value={text}
           onChange={handleChange}
           data-testid={`input-enquete-${enquete.id}`}
+          className='input'
         />
       ) : (
-          <p data-testid={`text-enquete-${enquete.id}`} onClick={ redirectToPage }>{text}</p>
+        <p
+          className='text-lg font-semibold cursor-pointer hover-text'
+          data-testid={`text-enquete-${enquete.id}`}
+          onClick={redirectToPage}
+        >
+          {text}
+        </p>
       )}
-      <button onClick={handleEdit} data-testid={`edit-enquete-${enquete.id}`}>
-        Edit
-      </button>
-      <button
-        disabled={!isEditing}
-        data-testid={`save-enquete-${enquete.id}`}
-        onClick={handleSave}
-      >
-        Save
-      </button>
-      <button
-        onClick={handleDelete}
-        data-testid={`delete-enquete-${enquete.id}`}
-      >
-        delete
-      </button>
+      <div className='flex gap-1'>
+        <button
+          onClick={handleEdit}
+          className='btn-hover'
+          data-testid={`edit-enquete-${enquete.id}`}
+        >
+          <FaPenSquare color='yellow' size={30} />
+        </button>
+        <button
+          disabled={!isEditing}
+          data-testid={`save-enquete-${enquete.id}`}
+          onClick={handleSave}
+          className='btn-hover'
+        >
+          <FaSave color='green' size={30} />
+        </button>
+        <button
+          onClick={handleDelete}
+          data-testid={`delete-enquete-${enquete.id}`}
+          className='btn-hover'
+        >
+          <FaTrash color='red' size={30} />
+        </button>
+      </div>
     </div>
   );
 };

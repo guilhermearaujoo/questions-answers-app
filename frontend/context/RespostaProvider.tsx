@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { ReactNode, useState } from "react";
-import { RespostaContext } from "./RespostaContext";
+import { ReactNode, useState } from 'react';
+import { RespostaContext } from './RespostaContext';
 
 type Props = {
   children: ReactNode;
@@ -13,13 +13,13 @@ export function RespostaProvider({ children }: Props) {
   const value = {
     reloadResposta,
     setReloadResposta,
-  }
-  
+  };
+
   return (
-      <>
-          <RespostaContext.Provider value={value}>
-              {children}
-          </RespostaContext.Provider>
-      </>
+    <>
+      <RespostaContext.Provider value={value}>
+        {children}
+      </RespostaContext.Provider>
+    </>
   );
 }

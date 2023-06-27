@@ -12,29 +12,34 @@ export default function InputCriarEnquete() {
     if (response === 'SUCCESS') {
       setRealoadEnquete(true);
     }
-  }
+    setEnquete('');
+  };
 
   return (
     <form
-      onSubmit={ (e) => {
+      onSubmit={(e) => {
         handleSubmit(e);
-      } }
+      }}
+      className='flex flex-col form'
     >
-      <label htmlFor='enquete'>Informe sua enquete: </label>
-      <input
-        type='text'
-        name='enquete'
-        placeholder='Digite a enquete'
-        onChange={(e) => {
-          setEnquete(e.currentTarget.value);
-        }}
-        required
-        minLength={5}
-        data-testid='input-enquete'
-      />
-      <button type='submit' data-testid='add-enquete'>
-        +
-      </button>
+      <div className='flex justify-between gap-2'>
+        <input
+          type='text'
+          name='enquete'
+          placeholder='Digite a enquete'
+          onChange={(e) => {
+            setEnquete(e.currentTarget.value);
+          }}
+          required
+          minLength={5}
+          data-testid='input-enquete'
+          className='input'
+          value={enquete}
+        />
+        <button type='submit' data-testid='add-enquete' className='btn-create'>
+          +
+        </button>
+      </div>
     </form>
   );
 }

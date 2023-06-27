@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { ReactNode, useState } from "react";
-import { EnqueteContext } from "./EnqueteContext";
+import { ReactNode, useState } from 'react';
+import { EnqueteContext } from './EnqueteContext';
 
 type Props = {
   children: ReactNode;
@@ -12,14 +12,14 @@ export function EnqueteProvider({ children }: Props) {
 
   const value = {
     reloadEnquete,
-    setRealoadEnquete
-  }
-  
+    setRealoadEnquete,
+  };
+
   return (
-      <>
-          <EnqueteContext.Provider value={value}>
-              {children}
-          </EnqueteContext.Provider>
-      </>
+    <>
+      <EnqueteContext.Provider value={value}>
+        {children}
+      </EnqueteContext.Provider>
+    </>
   );
 }

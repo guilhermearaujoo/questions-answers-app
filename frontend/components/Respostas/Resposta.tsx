@@ -1,6 +1,7 @@
-import { useResposta } from "@/context/RespostaContext";
-import { deleteResposta } from "@/services/Resposta";
-import { RespostaType } from "@/types/RespostaType";
+import { useResposta } from '@/context/RespostaContext';
+import { deleteResposta } from '@/services/Resposta';
+import { RespostaType } from '@/types/RespostaType';
+import { FaTrash } from 'react-icons/fa';
 
 type props = {
   resposta: RespostaType;
@@ -17,14 +18,19 @@ export default function Resposta({ resposta }: props) {
   };
 
   return (
-    <div className="flex gap-3">
-      { resposta.resposta }
-      <button
-        onClick={handleDelete}
-        data-testid={`delete-resposta-${resposta.id}`}
-      >
-        delete
-      </button>
+    <div className='flex gap-3'>
+      <div className='card-disabled'>
+        <p className='text-lg font-semibold cursor-pointer'>
+          {resposta.resposta}
+        </p>
+        <button
+          onClick={handleDelete}
+          data-testid={`delete-resposta-${resposta.id}`}
+          className='btn-hover'
+        >
+          <FaTrash color='red' size={30} />
+        </button>
+      </div>
     </div>
-  )
+  );
 }

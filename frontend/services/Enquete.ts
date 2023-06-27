@@ -1,6 +1,6 @@
-import { EnqueteType } from "@/types/Enquete";
+import { EnqueteType } from '@/types/Enquete';
 
-const URL = "http://localhost:3001/enquetes"
+const URL = 'http://localhost:3001/enquetes';
 
 async function postEnquete(pergunta: string) {
   try {
@@ -10,7 +10,7 @@ async function postEnquete(pergunta: string) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ pergunta }),
-    })
+    });
     return 'SUCCESS';
   } catch (error) {
     return 'ERROR';
@@ -21,7 +21,7 @@ async function getEnquetes(): Promise<EnqueteType[]> {
   try {
     const data = await fetch(URL);
     const enquetes = await data.json();
-  
+
     return enquetes as EnqueteType[];
   } catch (error) {
     return [];
@@ -48,10 +48,10 @@ async function deleteEnquete(id: number) {
       method: 'DELETE',
     });
     return 'SUCCESS';
- } catch (error) {
+  } catch (error) {
     return 'ERROR';
   }
-} 
+}
 
 async function getEnqueteById(id: number): Promise<EnqueteType> {
   try {
@@ -63,4 +63,4 @@ async function getEnqueteById(id: number): Promise<EnqueteType> {
   }
 }
 
-export { postEnquete, getEnquetes, editEnquete, deleteEnquete, getEnqueteById }
+export { postEnquete, getEnquetes, editEnquete, deleteEnquete, getEnqueteById };
