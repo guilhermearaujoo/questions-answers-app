@@ -18,7 +18,8 @@ services:
       context: backend
     tty: true
     stdin_open: true
-    command: 'npm run db:reset && npm run dev'
+    command: ['bash', '-c', 'npm run db:reset && npm run dev']
+    restart: always
     volumes:
       - ./backend/src/:/app/src
     working_dir: /app
@@ -30,7 +31,7 @@ services:
       DB_USER: root
       DB_PASSWORD: password
       DB_HOST: database
-      DB_PORT: 3308
+      DB_PORT: 3306
       DB_NAME: emepar_db
     networks:
       - "emepar_net"
