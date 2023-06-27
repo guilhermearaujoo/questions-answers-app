@@ -8,8 +8,8 @@ import {
 import db from '.';
 
 class SequelizeEnquete extends Model<
-  InferAttributes<SequelizeEnquete>,
-  InferCreationAttributes<SequelizeEnquete>
+InferAttributes<SequelizeEnquete>,
+InferCreationAttributes<SequelizeEnquete>
 > {
   declare id: CreationOptional<number>;
 
@@ -33,7 +33,7 @@ SequelizeEnquete.init(
     sequelize: db,
     modelName: 'enquetes',
     timestamps: false,
-  }
+  },
 );
 
 export default SequelizeEnquete;

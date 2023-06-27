@@ -20,16 +20,17 @@ export default class EnqueteService {
       };
     }
     const enquete = await this.enqueteModel.findById(id);
-    if (!enquete)
+    if (!enquete) {
       return {
         status: 'NOT_FOUND',
         data: { message: `Enquete ${id} not found` },
       };
+    }
     return { status: 'SUCCESSFUL', data: enquete };
   }
 
   public async createEnquete(
-    enquete: NewEntity<Enquete>
+    enquete: NewEntity<Enquete>,
   ): Promise<ServiceResponse<Enquete>> {
     const newEnquete = await this.enqueteModel.create(enquete);
     return { status: 'SUCCESSFUL', data: newEnquete };
@@ -37,7 +38,7 @@ export default class EnqueteService {
 
   public async updateEnquete(
     id: number,
-    enquete: Enquete
+    enquete: Enquete,
   ): Promise<ServiceResponse<ServiceMessage>> {
     const enqueteFound = await this.enqueteModel.findById(id);
     if (!enqueteFound) {
@@ -58,14 +59,15 @@ export default class EnqueteService {
   }
 
   public async deleteEnquete(
-    id: number
+    id: number,
   ): Promise<ServiceResponse<ServiceMessage>> {
     const enqueteFound = await this.enqueteModel.findById(id);
-    if (!enqueteFound)
+    if (!enqueteFound) {
       return {
         status: 'NOT_FOUND',
         data: { message: `Enquete ${id} not found` },
       };
+    }
 
     await this.enqueteModel.delete(id);
     return { status: 'SUCCESSFUL', data: { message: 'Enquete deleted' } };

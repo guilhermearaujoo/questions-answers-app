@@ -28,7 +28,7 @@ export default class EnqueteModel implements IEnqueteModel {
 
   async update(
     id: Enquete['id'],
-    data: Partial<NewEntity<Enquete>>
+    data: Partial<NewEntity<Enquete>>,
   ): Promise<Enquete | null> {
     const [affectedRows] = await this.model.update(data, { where: { id } });
     if (affectedRows === 0) return null;

@@ -4,7 +4,7 @@ class Validations {
   static validateEnquete(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Response | void {
     const enquete = req.body;
     const requiredKeys = ['pergunta'];
@@ -19,7 +19,7 @@ class Validations {
   static validateResposta(
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Response | void {
     const enquete = req.body;
     const requiredKeys = ['resposta', 'enqueteId'];

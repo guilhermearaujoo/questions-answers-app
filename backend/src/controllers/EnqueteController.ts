@@ -14,7 +14,7 @@ export default class EnqueteController {
     const { id } = req.params;
 
     const serviceResponse = await this.enqueteService.getEnqueteById(
-      Number(id)
+      Number(id),
     );
 
     if (serviceResponse.status !== 'SUCCESSFUL') {
@@ -36,7 +36,7 @@ export default class EnqueteController {
     const enquete = req.body;
     const serviceResponse = await this.enqueteService.updateEnquete(
       id,
-      enquete
+      enquete,
     );
 
     if (serviceResponse.status !== 'SUCCESSFUL') {

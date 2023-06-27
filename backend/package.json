@@ -15,6 +15,7 @@
     "test": "mocha 'build/src/test/**/*.js' --recursive --timeout 60000 --exit",
     "test:coverage": "nyc mocha",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "db:reset": "npx -y tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "keywords": [],

@@ -32,7 +32,7 @@ export default class RespostaModel implements IRespostaModel {
 
   async update(
     id: Resposta['id'],
-    data: Partial<NewEntity<Resposta>>
+    data: Partial<NewEntity<Resposta>>,
   ): Promise<Resposta | null> {
     const [affectedRows] = await this.model.update(data, { where: { id } });
     if (affectedRows === 0) return null;

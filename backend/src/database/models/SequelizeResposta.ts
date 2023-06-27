@@ -9,8 +9,8 @@ import db from '.';
 import SequelizeEnquete from './SequelizeEnquete';
 
 class SequelizeResposta extends Model<
-  InferAttributes<SequelizeResposta>,
-  InferCreationAttributes<SequelizeResposta>
+InferAttributes<SequelizeResposta>,
+InferCreationAttributes<SequelizeResposta>
 > {
   declare id: CreationOptional<number>;
 
@@ -40,7 +40,7 @@ SequelizeResposta.init(
     sequelize: db,
     modelName: 'respostas',
     timestamps: false,
-  }
+  },
 );
 
 SequelizeEnquete.hasMany(SequelizeResposta, {

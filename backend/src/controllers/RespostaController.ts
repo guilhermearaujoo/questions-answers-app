@@ -14,7 +14,7 @@ export default class BookController {
     const { id } = req.params;
 
     const serviceResponse = await this.respostaService.getRespostaById(
-      Number(id)
+      Number(id),
     );
 
     if (serviceResponse.status !== 'SUCCESSFUL') {
@@ -36,7 +36,7 @@ export default class BookController {
     const resposta = req.body;
     const serviceResponse = await this.respostaService.updateResposta(
       id,
-      resposta
+      resposta,
     );
 
     if (serviceResponse.status !== 'SUCCESSFUL') {
