@@ -1,30 +1,30 @@
-# Emepar
+# Full Stack Question and Answer App
 
-App fullstack para criar enquetes/respostas desenvolvida para o teste seletivo da empar.
+Fuuls Stack app to create questions and answers.
 
-## Como executar?
+## How to use?
 
-O arquivo `docker-compose.yml` já define que ao subir o container a aplicação seja iniciada por meio do comando `npm run dev`. Portanto, basta executar o comando:
+The file `docker-compose.yml` defines that when the container initialize the command `npm run dev` will run. To use, simply execute:
 
 ```bash
 docker-compose up -d
 ```
 
-### Onde acessar
+### Where to access
 ```bash
-#Após iciar os containers do docker vá em:
+# After initialized the containers go to:
 http://localhost:3001
 ```
-### importante
-O mysql pode demorar menos ou mais para rodar na sua máquina isso explica cado a aplcação demore mais de 1 minuto para iniciar.
+### Important
+Mysql could take more than 1 minute to start in your machine. The app may take more than 1 minute to start.
 
-### Dica
+### Tip
 
-Caso tenha conflitos com portas já usadas. Use os comandos:
+In case of port conflicts, use the following commands:
 
 ```bash
-killall node # Parar qualquer aplicação node que esteja sendo executados na máquina!
-docker stop $(docker ps -qa) # Para containers que estão sendo executados!
+killall node
+docker stop $(docker ps -qa)
 ```
 
 Caso esteja utilizando o windows faça:
