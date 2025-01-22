@@ -1,6 +1,6 @@
 # Full Stack Question and Answer App
 
-Fuuls Stack app to create questions and answers.
+Full Stack app to create questions and answers.
 
 ## How to use?
 
